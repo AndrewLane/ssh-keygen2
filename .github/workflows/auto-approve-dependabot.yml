@@ -1,4 +1,3 @@
----
 name: Auto-approve Dependabot PRs
 
 on:
@@ -8,8 +7,7 @@ jobs:
   auto-approve:
     runs-on: ubuntu-latest
     steps:
-      - name: Auto approve Dependabot PRs
-      uses: hmarr/auto-approve-action@v2.0.0
+    - uses: hmarr/auto-approve-action@v2.0.0
       if: (github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]') && contains(github.event.pull_request.body, 'will automatically merge')
       with:
         github-token: "${{ secrets.GITHUB_TOKEN }}"
