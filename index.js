@@ -39,9 +39,9 @@ module.exports = function (opts, cb) {
         if (err && err.code !== 'ENOENT') return cb(err);
         if (!key) return cb(new Error(stderr));
         ret.public = key;
-        var match = stdout.match(/fingerprint is:\n([^\n]+)\n/);
+        var match = stdout.match(/fingerprint is:\r?\n([^\r\n]+)\r?\n/);
         if (match) ret.fingerprint = match[1].trim();
-        var match = stdout.match(/randomart image is:\n([\s\S]+)/);
+        var match = stdout.match(/randomart image is:\r?\n([\s\S]+)/);
         if (match) ret.randomart = match[1].trim();
         if (opts.keep) return cb(null, ret);
         fs.unlink(location, function (err) {
