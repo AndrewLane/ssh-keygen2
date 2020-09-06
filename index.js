@@ -22,6 +22,7 @@ module.exports = function (opts, cb) {
   args.push('-C', opts.comment || '');
   args.push('-N', opts.passphrase || opts.password || '');
   args.push('-f', location);
+  args.push('-m', 'PEM');
 
   var proc = spawn('ssh-keygen', args, opts);
   proc.stderr.on('data', function (data) {
