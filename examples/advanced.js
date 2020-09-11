@@ -1,20 +1,19 @@
-var keygen = require('../')
-  , assert = require('assert')
+const assert = require('assert');
+const keygen = require('..');
 
-var opts = {
+const opts = {
   type: 'rsa',
   bits: 4096,
-  comment: 'carlos8f',
   passphrase: 'this will encrypt the private key',
   location: '/tmp/example_rsa_key',
   keep: true, // this will keep the resulting files
-  comment: 'optional comment for ssh public key'
+  comment: 'optional comment for ssh public key',
 };
 
-keygen(opts, function (err, keypair) {
+keygen(opts, (err, keypair) => {
   assert.ifError(err);
-  console.log(keypair.private);
-  console.log(keypair.public);
-  console.log(keypair.fingerprint + '\n');
-  console.log(keypair.randomart + '\n');
+  console.log(keypair.private); // eslint-disable-line no-console
+  console.log(keypair.public); // eslint-disable-line no-console
+  console.log(`${keypair.fingerprint}\n`); // eslint-disable-line no-console
+  console.log(`${keypair.randomart}\n`); // eslint-disable-line no-console
 });

@@ -1,20 +1,20 @@
-var spawn = require('child_process').spawn
-  , path = require('path')
-  , tmpDir = require('os').tmpdir()
-  , crypto = require('crypto')
-  , fs = require('fs')
+const { spawn } = require('child_process');
+const path = require('path');
+const tmpDir = require('os').tmpdir();
+const crypto = require('crypto');
+const fs = require('fs');
 
-module.exports = function (opts, cb) {
+module.exports = (opts, cb) => {
   if (typeof opts === 'function') {
-    cb = opts;
-    opts = {};
+    cb = opts; // eslint-disable-line no-param-reassign
+    opts = {}; // eslint-disable-line no-param-reassign
   }
-  opts || (opts = {});
-  var stderr = ''
-    , stdout = ''
-    , location = opts.location || path.join(tmpDir, crypto.randomBytes(16).toString('hex'))
-    , args = []
-    , ret = {}
+  opts = opts || {}; // eslint-disable-line no-param-reassign
+  let stderr = '';
+  let stdout = '';
+  const location = opts.location || path.join(tmpDir, crypto.randomBytes(16).toString('hex'));
+  const args = [];
+  const ret = {};
 
   if (opts.keep) ret.path = location;
   if (opts.type) args.push('-t', opts.type);
@@ -24,31 +24,31 @@ module.exports = function (opts, cb) {
   args.push('-f', location);
   args.push('-m', 'PEM');
 
-  var proc = spawn('ssh-keygen', args, opts);
-  proc.stderr.on('data', function (data) {
+  const proc = spawn('ssh-keygen', args, opts);
+  proc.stderr.on('data', (data) => {
     stderr += data;
   });
-  proc.stdout.on('data', function (data) {
+  proc.stdout.on('data', (data) => {
     stdout += data;
   });
-  proc.on('exit', function () {
-    fs.readFile(location, {encoding: 'ascii'}, function (err, key) {
-      if (err && err.code !== 'ENOENT') return cb(err);
-      if (!key) return cb(new Error(stderr));
-      ret.private = key;
-      fs.readFile(location + '.pub', {encoding: 'ascii'}, function (err, key) {
-        if (err && err.code !== 'ENOENT') return cb(err);
-        if (!key) return cb(new Error(stderr));
-        ret.public = key;
-        var match = stdout.match(/fingerprint is:\r?\n([^\r\n]+)\r?\n/);
+  proc.on('exit', () => {
+    fs.readFile(location, { encoding: 'ascii' }, (privateErr, privateKey) => { // eslint-disable-line consistent-return
+      if (privateErr && privateErr.code !== 'ENOENT') return cb(privateErr);
+      if (!privateKey) return cb(new Error(stderr));
+      ret.private = privateKey;
+      fs.readFile(`${location}.pub`, { encoding: 'ascii' }, (publicErr, publicKey) => { // eslint-disable-line consistent-return
+        if (publicErr && publicErr.code !== 'ENOENT') return cb(publicErr);
+        if (!publicKey) return cb(new Error(stderr));
+        ret.public = publicKey;
+        let match = stdout.match(/fingerprint is:\r?\n([^\r\n]+)\r?\n/);
         if (match) ret.fingerprint = match[1].trim();
-        var match = stdout.match(/randomart image is:\r?\n([\s\S]+)/);
+        match = stdout.match(/randomart image is:\r?\n([\s\S]+)/);
         if (match) ret.randomart = match[1].trim();
         if (opts.keep) return cb(null, ret);
-        fs.unlink(location, function (err) {
-          if (err) return cb(err);
-          fs.unlink(location + '.pub', function (err) {
-            if (err) return cb(err);
+        fs.unlink(location, (unlinkPrivateErr) => { // eslint-disable-line consistent-return
+          if (unlinkPrivateErr) return cb(unlinkPrivateErr);
+          fs.unlink(`${location}.pub`, (unlinkPublicErr) => { // eslint-disable-line consistent-return
+            if (unlinkPublicErr) return cb(unlinkPublicErr);
             cb(null, ret);
           });
         });
