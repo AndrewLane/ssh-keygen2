@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "npx eslint **/*.js && mocha",
-    "test-with-coverage": "nyc --reporter=lcovonly mocha"
+    "coverage": "nyc --reporter=lcovonly mocha"
   },
   "repository": {
     "type": "git",
