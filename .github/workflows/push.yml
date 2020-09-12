@@ -35,10 +35,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Generate coverage report
       - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 14
       - run: npm run test-with-coverage
-      - name: Upload coverage report
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
