@@ -16,9 +16,15 @@ module.exports = (opts, cb) => {
   const args = [];
   const ret = {};
 
-  if (opts.keep) ret.path = location;
-  if (opts.type) args.push('-t', opts.type);
-  if (opts.bits) args.push('-b', opts.bits);
+  if (opts.keep) {
+    ret.path = location;
+  }
+  if (opts.type) {
+    args.push('-t', opts.type);
+  }
+  if (opts.bits) {
+    args.push('-b', opts.bits);
+  }
   args.push('-C', opts.comment || '');
   args.push('-N', opts.passphrase || opts.password || '');
   args.push('-f', location);
@@ -33,22 +39,38 @@ module.exports = (opts, cb) => {
   });
   proc.on('exit', () => {
     fs.readFile(location, { encoding: 'ascii' }, (privateErr, privateKey) => { // eslint-disable-line consistent-return
-      if (privateErr && privateErr.code !== 'ENOENT') return cb(privateErr);
-      if (!privateKey) return cb(new Error(stderr));
+      if (privateErr && privateErr.code !== 'ENOENT') {
+        return cb(privateErr);
+      }
+      if (!privateKey) {
+        return cb(new Error(stderr));
+      }
       ret.private = privateKey;
       fs.readFile(`${location}.pub`, { encoding: 'ascii' }, (publicErr, publicKey) => { // eslint-disable-line consistent-return
-        if (publicErr && publicErr.code !== 'ENOENT') return cb(publicErr);
-        if (!publicKey) return cb(new Error(stderr));
+        if (publicErr && publicErr.code !== 'ENOENT') {
+          return cb(publicErr);
+        }
+        if (!publicKey) {
+          return cb(new Error(stderr));
+        }
         ret.public = publicKey;
         let match = stdout.match(/fingerprint is:\r?\n([^\r\n]+)\r?\n/);
         if (match) ret.fingerprint = match[1].trim();
         match = stdout.match(/randomart image is:\r?\n([\s\S]+)/);
-        if (match) ret.randomart = match[1].trim();
-        if (opts.keep) return cb(null, ret);
+        if (match) {
+          ret.randomart = match[1].trim();
+        }
+        if (opts.keep) {
+          return cb(null, ret);
+        }
         fs.unlink(location, (unlinkPrivateErr) => { // eslint-disable-line consistent-return
-          if (unlinkPrivateErr) return cb(unlinkPrivateErr);
+          if (unlinkPrivateErr) {
+            return cb(unlinkPrivateErr);
+          }
           fs.unlink(`${location}.pub`, (unlinkPublicErr) => { // eslint-disable-line consistent-return
-            if (unlinkPublicErr) return cb(unlinkPublicErr);
+            if (unlinkPublicErr) {
+              return cb(unlinkPublicErr);
+            }
             cb(null, ret);
           });
         });
