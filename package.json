@@ -13,7 +13,8 @@
     "nyc": "15.1.0"
   },
   "scripts": {
-    "test": "npx eslint **/*.js && nyc --reporter=lcovonly mocha"
+    "test": "npx eslint **/*.js && mocha",
+    "test-with-coverage": "nyc --reporter=lcovonly mocha"
   },
   "repository": {
     "type": "git",
