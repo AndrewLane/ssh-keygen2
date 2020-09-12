@@ -31,7 +31,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN }}
   upload-coverage:
-    uses: codecov/codecov-action@v1
-    with:
-      token: ${{ secrets.CODECOV_TOKEN }}
-      file: ./coverage/lcov.info
+    name: Upload Coverage
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
