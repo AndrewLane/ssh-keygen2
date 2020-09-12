@@ -9,10 +9,11 @@
     "eslint": "7.8.1",
     "eslint-config-airbnb-base": "14.2.0",
     "eslint-plugin-import": "2.22.0",
-    "mocha": "8.1.3"
+    "mocha": "8.1.3",
+    "nyc": "15.1.0"
   },
   "scripts": {
-    "test": "npx eslint **/*.js && mocha"
+    "test": "npx eslint **/*.js && nyc --reporter=lcovonly mocha"
   },
   "repository": {
     "type": "git",

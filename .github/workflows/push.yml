@@ -1,6 +1,6 @@
 ---
 on: push
-name: Build, Test, and Publish
+name: Build, Test, Upload Coverage, and Publish
 jobs:
   build:
     name: Build
@@ -30,3 +30,8 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN }}
+  upload-coverage:
+    uses: codecov/codecov-action@v1
+    with:
+      token: ${{ secrets.CODECOV_TOKEN }}
+      file: ./coverage/lcov.info
