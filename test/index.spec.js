@@ -38,6 +38,35 @@ describe('basic tests', () => {
     });
   });
 
+  it('fails with too large number of bits', (done) => {
+    keygen({ bits: 1000000000 }, (err, _) => {
+      expect(expect(err).to.not.be.null);
+      expect(err).to.match(/Bits has bad value/);
+      done();
+    });
+  });
+
+  it('fails with invalid key type', (done) => {
+    keygen({ type: 'foo' }, (err, _) => {
+      expect(expect(err).to.not.be.null);
+      expect(err).to.match(/unknown key type/);
+      done();
+    });
+  });
+
+  ['dsa', 'ecdsa', 'ed25519', 'rsa'].forEach((keyType) => {
+    it(`can generate a ${keyType} key`, (done) => {
+      keygen({ type: keyType }, (err, result) => {
+        expect(expect(err).to.be.null);
+        expect(result.private).to.match(/^-----BEGIN (.*) PRIVATE KEY-----\n/);
+        expect(result.public.length > 0);
+        expect(result.fingerprint.length > 0);
+        expect(result.randomart.length > 0);
+        done();
+      });
+    });
+  });
+
   it('keeps the file when asked to', (done) => {
     const dummyLocation = path.join(tmpDir, `dummy_file_to_keep_${crypto.randomBytes(16).toString('hex')}`);
 
@@ -66,6 +95,14 @@ describe('basic tests', () => {
         expect(fileReadErr.code).to.eql('ENOENT');
         done();
       });
+    });
+  });
+
+  it('should fail if a bad location is specified', (done) => {
+    keygen({ location: '/bad/location/' }, (err, _) => {
+      expect(expect(err).to.not.be.null);
+      expect(err).to.match(/No such file or directory/);
+      done();
     });
   });
 });
