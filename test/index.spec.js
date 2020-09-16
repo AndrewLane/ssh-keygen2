@@ -41,7 +41,7 @@ describe('basic tests', () => {
   it('fails with too large number of bits', (done) => {
     keygen({ bits: 1000000000 }, (err, _) => {
       expect(expect(err).to.not.be.null);
-      expect(err).to.match(/Bits has bad value/);
+      expect(err).to.match(/(Bits has bad value)|(Invalid RSA key length)/);
       done();
     });
   });
