@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 1-Oct-2020
+
+### Changed
+- Tweaking GitHub Actions (CI only)
+
 ## [1.1.0] - 1-Oct-2020
 
 ### Added
@@ -17,6 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Initial Release
 
+[1.1.1]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/AndrewLane/ssh-keygen2/releases/tag/v1.0.1
 

@@ -1,6 +1,6 @@
 {
   "name": "@andrewwlane/ssh-keygen2",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Automate ssh-keygen command for generating RSA keypairs",
   "main": "index.js",
   "dependencies": {},
