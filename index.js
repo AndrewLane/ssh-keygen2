@@ -44,11 +44,11 @@ module.exports = (opts, cb) => {
       overwriteRefused = true;
     }
   });
-  proc.on('exit', () => { // eslint-disable-line consistent-return
+  proc.on('exit', () => {
     if (overwriteRefused) {
       return cb(new Error('Key not generated because it would overwrite an existing file'));
     }
-    fs.readFile(location, { encoding: 'ascii' }, (privateErr, privateKey) => { // eslint-disable-line consistent-return
+    return fs.readFile(location, { encoding: 'ascii' }, (privateErr, privateKey) => {
       if (privateErr && privateErr.code !== 'ENOENT') {
         return cb(privateErr);
       }
@@ -56,7 +56,7 @@ module.exports = (opts, cb) => {
         return cb(new Error(stderr));
       }
       ret.private = privateKey;
-      fs.readFile(`${location}.pub`, { encoding: 'ascii' }, (publicErr, publicKey) => { // eslint-disable-line consistent-return
+      return fs.readFile(`${location}.pub`, { encoding: 'ascii' }, (publicErr, publicKey) => {
         if (publicErr && publicErr.code !== 'ENOENT') {
           return cb(publicErr);
         }
@@ -73,15 +73,15 @@ module.exports = (opts, cb) => {
         if (opts.keep) {
           return cb(null, ret);
         }
-        fs.unlink(location, (unlinkPrivateErr) => { // eslint-disable-line consistent-return
+        return fs.unlink(location, (unlinkPrivateErr) => {
           if (unlinkPrivateErr) {
             return cb(unlinkPrivateErr);
           }
-          fs.unlink(`${location}.pub`, (unlinkPublicErr) => { // eslint-disable-line consistent-return
+          return fs.unlink(`${location}.pub`, (unlinkPublicErr) => {
             if (unlinkPublicErr) {
               return cb(unlinkPublicErr);
             }
-            cb(null, ret);
+            return cb(null, ret);
           });
         });
       });
