@@ -74,7 +74,7 @@ describe('basic tests', () => {
       expect(expect(err).to.be.null);
       expect(expect(result.path).to.not.be.null);
       const privateKey = result.private;
-      fs.readFile(result.path, { encoding: 'ascii' }, (fileReadErr, key) => { // eslint-disable-line consistent-return
+      fs.readFile(result.path, { encoding: 'ascii' }, (fileReadErr, key) => {
         expect(expect(fileReadErr).to.be.null);
         expect(key).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
         expect(key).to.eql(privateKey);
@@ -90,7 +90,7 @@ describe('basic tests', () => {
       expect(expect(err).to.be.null);
       expect(expect(result.path).to.be.undefined);
       expect(result.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
-      fs.readFile(dummyLocation, { encoding: 'ascii' }, (fileReadErr, _) => { // eslint-disable-line consistent-return
+      fs.readFile(dummyLocation, { encoding: 'ascii' }, (fileReadErr, _) => {
         expect(expect(fileReadErr).to.not.be.null);
         expect(fileReadErr.code).to.eql('ENOENT');
         done();
