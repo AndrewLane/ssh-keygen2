@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] - 10-Jan-2023
+
+### Changed
+- Version bumps and security fix in dependencies
+
 ## [1.1.3] - 28-Mar-2022
 
 ### Changed
@@ -32,6 +37,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Initial Release
 
+[1.1.4]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.1.0...v1.1.1
