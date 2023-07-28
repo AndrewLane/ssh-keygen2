@@ -1,9 +1,9 @@
+const fs = require('fs');
 const { expect } = require('chai');
 const { describe, it } = require('mocha');
 const tmpDir = require('os').tmpdir();
 const path = require('path');
 const crypto = require('crypto');
-const fs = require('fs');
 const keygen = require('..');
 
 describe('basic tests', () => {
