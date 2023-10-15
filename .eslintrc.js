@@ -4,14 +4,13 @@ module.exports = {
     commonjs: true,
     es2021: true,
   },
-  extends: [
-    'airbnb-base',
-  ],
+  extends: ["airbnb-base"],
   parserOptions: {
     ecmaVersion: 12,
   },
   rules: {
-    'linebreak-style': 0,
-    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    "linebreak-style": 0,
+    "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    quotes: ["error", "double"],
   },
 };
