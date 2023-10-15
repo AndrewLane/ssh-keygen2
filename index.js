@@ -1,4 +1,4 @@
-const { spawn } = require("child_process");
+const childProcess = require("child_process");
 const path = require("path");
 const tmpDir = require("os").tmpdir();
 const crypto = require("crypto");
@@ -31,7 +31,7 @@ module.exports = (opts, cb) => {
   args.push("-f", location);
   args.push("-m", "PEM");
 
-  const proc = spawn("ssh-keygen", args);
+  const proc = childProcess.spawn("ssh-keygen", args);
   proc.stderr.on("data", (data) => {
     stderr += data;
   });
