@@ -31,7 +31,7 @@ describe('basic tests', () => {
   });
 
   it('encrypts using passphrase', (done) => {
-    keygen({ passphrase: 'foofoofoo' }, (err, result) => {
+    keygen({ passphrase: 'foo bar biz bat' }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
       expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
