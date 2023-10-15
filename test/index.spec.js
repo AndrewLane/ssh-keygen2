@@ -3,7 +3,10 @@ const tmpDir = require("os").tmpdir();
 const path = require("path");
 const crypto = require("crypto");
 const { expect } = require("chai");
-const { describe, it } = require("mocha");
+const { describe, it, afterEach } = require("mocha");
+const sinon = require("sinon");
+const childProcess = require("child_process");
+const { EventEmitter } = require("events");
 const keygen = require("..");
 
 describe("basic tests", () => {
@@ -131,6 +134,54 @@ describe("basic tests", () => {
         expect(secondErr).to.match(/Key not generated because it would overwrite an existing file/);
         done();
       });
+    });
+  });
+});
+
+describe("Advanced error scenarios", () => {
+  afterEach(sinon.restore);
+
+  function getFakeProcess() {
+    const fakeProcess = new EventEmitter();
+    const stdout = new EventEmitter();
+    const stderr = new EventEmitter();
+    fakeProcess.stdout = stdout;
+    fakeProcess.stderr = stderr;
+    return fakeProcess;
+  }
+
+  it("should fail when the private key file cannot be read", (done) => {
+    const fakeProcess = getFakeProcess();
+    sinon.stub(childProcess, "spawn").returns(fakeProcess);
+    sinon.stub(fs, "readFile").yields(new Error("Some unexpected failure reading the private key"), "");
+
+    setTimeout(() => {
+      fakeProcess.emit("exit");
+    }, 5);
+
+    keygen((err, _) => {
+      expect(expect(err).to.not.be.null);
+      expect(err).to.match(/Some unexpected failure reading the private key/);
+      done();
+    });
+  });
+
+  it("should fail when the keygen process errors out", (done) => {
+    const fakeProcess = getFakeProcess();
+    sinon.stub(childProcess, "spawn").returns(fakeProcess);
+
+    setTimeout(() => {
+      fakeProcess.stderr.emit("data", "Something bad happened");
+    }, 5);
+
+    setTimeout(() => {
+      fakeProcess.emit("exit");
+    }, 10);
+
+    keygen((err, _) => {
+      expect(expect(err).to.not.be.null);
+      expect(err).to.match(/Something bad happened/);
+      done();
     });
   });
 });
