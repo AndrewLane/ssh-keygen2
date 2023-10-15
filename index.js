@@ -1,19 +1,19 @@
-const { spawn } = require('child_process');
-const path = require('path');
-const tmpDir = require('os').tmpdir();
-const crypto = require('crypto');
-const fs = require('fs');
+const { spawn } = require("child_process");
+const path = require("path");
+const tmpDir = require("os").tmpdir();
+const crypto = require("crypto");
+const fs = require("fs");
 
 module.exports = (opts, cb) => {
-  if (typeof opts === 'function') {
+  if (typeof opts === "function") {
     cb = opts; // eslint-disable-line no-param-reassign
     opts = {}; // eslint-disable-line no-param-reassign
   }
   opts = opts || {}; // eslint-disable-line no-param-reassign
-  let stderr = '';
-  let stdout = '';
+  let stderr = "";
+  let stdout = "";
   let overwriteRefused = false;
-  const location = opts.location || path.join(tmpDir, crypto.randomBytes(16).toString('hex'));
+  const location = opts.location || path.join(tmpDir, crypto.randomBytes(16).toString("hex"));
   const args = [];
   const ret = {};
 
@@ -21,43 +21,43 @@ module.exports = (opts, cb) => {
     ret.path = location;
   }
   if (opts.type) {
-    args.push('-t', opts.type);
+    args.push("-t", opts.type);
   }
   if (opts.bits) {
-    args.push('-b', opts.bits);
+    args.push("-b", opts.bits);
   }
-  args.push('-C', opts.comment || '');
-  args.push('-N', opts.passphrase || opts.password || '');
-  args.push('-f', location);
-  args.push('-m', 'PEM');
+  args.push("-C", opts.comment || "");
+  args.push("-N", opts.passphrase || opts.password || "");
+  args.push("-f", location);
+  args.push("-m", "PEM");
 
-  const proc = spawn('ssh-keygen', args);
-  proc.stderr.on('data', (data) => {
+  const proc = spawn("ssh-keygen", args);
+  proc.stderr.on("data", (data) => {
     stderr += data;
   });
-  proc.stdout.on('data', (data) => {
+  proc.stdout.on("data", (data) => {
     stdout += data;
 
     // check for the case where we are trying to overwrite a file
-    if (stdout.indexOf('already exists') >= 0 && stdout.indexOf('Overwrite') >= 0) {
-      proc.stdin.write('n\n'); // send a "No" which should refuse to overwrite an existing key
+    if (stdout.indexOf("already exists") >= 0 && stdout.indexOf("Overwrite") >= 0) {
+      proc.stdin.write("n\n"); // send a "No" which should refuse to overwrite an existing key
       overwriteRefused = true;
     }
   });
-  proc.on('exit', () => {
+  proc.on("exit", () => {
     if (overwriteRefused) {
-      return cb(new Error('Key not generated because it would overwrite an existing file'));
+      return cb(new Error("Key not generated because it would overwrite an existing file"));
     }
-    return fs.readFile(location, { encoding: 'ascii' }, (privateErr, privateKey) => {
-      if (privateErr && privateErr.code !== 'ENOENT') {
+    return fs.readFile(location, { encoding: "ascii" }, (privateErr, privateKey) => {
+      if (privateErr && privateErr.code !== "ENOENT") {
         return cb(privateErr);
       }
       if (!privateKey) {
         return cb(new Error(stderr));
       }
       ret.private = privateKey;
-      return fs.readFile(`${location}.pub`, { encoding: 'ascii' }, (publicErr, publicKey) => {
-        if (publicErr && publicErr.code !== 'ENOENT') {
+      return fs.readFile(`${location}.pub`, { encoding: "ascii" }, (publicErr, publicKey) => {
+        if (publicErr && publicErr.code !== "ENOENT") {
           return cb(publicErr);
         }
         if (!publicKey) {
