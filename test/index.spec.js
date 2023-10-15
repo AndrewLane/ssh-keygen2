@@ -184,4 +184,82 @@ describe("Advanced error scenarios", () => {
       done();
     });
   });
+
+  it("should fail when the public key file cannot be read", (done) => {
+    const fakeProcess = getFakeProcess();
+
+    sinon.stub(childProcess, "spawn").returns(fakeProcess);
+    const readFileStub = sinon.stub(fs, "readFile");
+    readFileStub.onFirstCall().yields(undefined, "dummy private key");
+    readFileStub.onSecondCall().yields(new Error("Some unexpected failure reading the public key"), "");
+
+    setTimeout(() => {
+      fakeProcess.emit("exit");
+    }, 5);
+
+    keygen((err, _) => {
+      expect(expect(err).to.not.be.null);
+      expect(err).to.match(/Some unexpected failure reading the public key/);
+      done();
+    });
+  });
+
+  it("should fail when the keygen process cannot generate a public key for some reason", (done) => {
+    const fakeProcess = getFakeProcess();
+    sinon.stub(childProcess, "spawn").returns(fakeProcess);
+    const readFileStub = sinon.stub(fs, "readFile");
+    readFileStub.onFirstCall().yields(undefined, "dummy private key");
+    readFileStub.onSecondCall().yields(undefined, undefined);
+
+    setTimeout(() => {
+      fakeProcess.stderr.emit("data", "Something bad happened with the public key");
+    }, 5);
+
+    setTimeout(() => {
+      fakeProcess.emit("exit");
+    }, 10);
+
+    keygen((err, _) => {
+      expect(expect(err).to.not.be.null);
+      expect(err).to.match(/Something bad happened with the public key/);
+      done();
+    });
+  });
+
+  it("should fail when the private key cannot be deleted", (done) => {
+    const fakeProcess = getFakeProcess();
+    sinon.stub(childProcess, "spawn").returns(fakeProcess);
+    sinon.stub(fs, "readFile").yields(undefined, "some private/public key");
+    sinon.stub(fs, "unlink").yields(new Error("Some unexpected failure deleting the private key"), "");
+
+    setTimeout(() => {
+      fakeProcess.emit("exit");
+    }, 5);
+
+    keygen((err, _) => {
+      expect(expect(err).to.not.be.null);
+      expect(err).to.match(/Some unexpected failure deleting the private key/);
+      done();
+    });
+  });
+
+  it("should fail when the public key cannot be deleted", (done) => {
+    const fakeProcess = getFakeProcess();
+    sinon.stub(childProcess, "spawn").returns(fakeProcess);
+    sinon.stub(fs, "readFile").yields(undefined, "some private/public key");
+
+    const unlinkStub = sinon.stub(fs, "unlink");
+    unlinkStub.onFirstCall().yields(undefined);
+    unlinkStub.onSecondCall().yields(new Error("Some unexpected failure deleting the public key"), "");
+
+    setTimeout(() => {
+      fakeProcess.emit("exit");
+    }, 5);
+
+    keygen((err, _) => {
+      expect(expect(err).to.not.be.null);
+      expect(err).to.match(/Some unexpected failure deleting the public key/);
+      done();
+    });
+  });
 });
