@@ -1,0 +1,42 @@
+---
+on:
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+name: Check code style
+
+jobs:
+  check-code-style:
+    name: Check codestyle
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Format the code
+      # 2. If code was formatted, fail and open up a PR to format the code
+      # 3. If code was not formatted, proceed...
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Set up NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - name: Install Prettier
+        run: npm install -g prettier@3.0.0
+      - name: Apply Code formatting
+        run: prettier --write **/*.js
+      - name: Check if code formatters applied changes
+        uses: tj-actions/verify-changed-files@v13.1
+        id: verify-changed-files
+      - name: Create Pull Request if code formatters fixed something
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Code formatting tool on ${{ github.head_ref }}
+          title: Code formatting for ${{ github.head_ref }}
+          body: Auto-generated PR with fixes by code formatting tools
+          labels: code formatters, automated pr
+          branch: formatter-patches/${{ github.head_ref }}
+      - name: Fail flow if code formatters found issues
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        run: exit 1
