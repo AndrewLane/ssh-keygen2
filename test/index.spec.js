@@ -30,8 +30,8 @@ describe("basic tests", () => {
     });
   });
 
-  it('encrypts using passphrase', (done) => {
-    keygen({ passphrase: 'foo bar biz bat' }, (err, result) => {
+  it("encrypts using passphrase", (done) => {
+    keygen({ passphrase: "foo bar biz bat" }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
       expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
@@ -41,7 +41,7 @@ describe("basic tests", () => {
       done();
     });
   });
-  
+
   it("fails with negative number of bits", (done) => {
     keygen({ bits: -1 }, (err, _) => {
       expect(expect(err).to.not.be.null);
