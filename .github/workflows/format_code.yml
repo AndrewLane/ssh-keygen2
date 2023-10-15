@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: "18.x"
       - name: Install Prettier
-        run: npm install -g prettier@3.0.0
+        run: npm install -g prettier@3.0.3
       - name: Apply Code formatting
         run: prettier --write **/*.js
       - name: Check if code formatters applied changes
