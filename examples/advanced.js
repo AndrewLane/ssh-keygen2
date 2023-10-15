@@ -1,15 +1,15 @@
-const assert = require('assert');
-const path = require('path');
-const tmpDir = require('os').tmpdir();
-const keygen = require('..');
+const assert = require("assert");
+const path = require("path");
+const tmpDir = require("os").tmpdir();
+const keygen = require("..");
 
 const opts = {
-  type: 'rsa',
+  type: "rsa",
   bits: 4096,
-  passphrase: 'this will encrypt the private key',
-  location: path.join(tmpDir, 'example_rsa_key'),
+  passphrase: "this will encrypt the private key",
+  location: path.join(tmpDir, "example_rsa_key"),
   keep: true, // this will keep the resulting files
-  comment: 'optional comment for ssh public key',
+  comment: "optional comment for ssh public key",
 };
 
 keygen(opts, (err, keypair) => {

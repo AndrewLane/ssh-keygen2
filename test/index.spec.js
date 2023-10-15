@@ -1,13 +1,13 @@
-const fs = require('fs');
-const tmpDir = require('os').tmpdir();
-const path = require('path');
-const crypto = require('crypto');
-const { expect } = require('chai');
-const { describe, it } = require('mocha');
-const keygen = require('..');
+const fs = require("fs");
+const tmpDir = require("os").tmpdir();
+const path = require("path");
+const crypto = require("crypto");
+const { expect } = require("chai");
+const { describe, it } = require("mocha");
+const keygen = require("..");
 
-describe('basic tests', () => {
-  it('generates', (done) => {
+describe("basic tests", () => {
+  it("generates", (done) => {
     keygen((err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
@@ -18,8 +18,8 @@ describe('basic tests', () => {
     });
   });
 
-  it('encrypts', (done) => {
-    keygen({ password: 'blahblahblah' }, (err, result) => {
+  it("encrypts", (done) => {
+    keygen({ password: "blahblahblah" }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
       expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
@@ -30,7 +30,7 @@ describe('basic tests', () => {
     });
   });
 
-  it('fails with negative number of bits', (done) => {
+  it("fails with negative number of bits", (done) => {
     keygen({ bits: -1 }, (err, _) => {
       expect(expect(err).to.not.be.null);
       expect(err).to.match(/Bits has bad value/);
@@ -38,7 +38,7 @@ describe('basic tests', () => {
     });
   });
 
-  it('fails with too large number of bits', (done) => {
+  it("fails with too large number of bits", (done) => {
     keygen({ bits: 1000000000 }, (err, _) => {
       expect(expect(err).to.not.be.null);
       expect(err).to.match(/(Bits has bad value)|(Invalid RSA key length)/);
@@ -46,15 +46,15 @@ describe('basic tests', () => {
     });
   });
 
-  it('fails with invalid key type', (done) => {
-    keygen({ type: 'foo' }, (err, _) => {
+  it("fails with invalid key type", (done) => {
+    keygen({ type: "foo" }, (err, _) => {
       expect(expect(err).to.not.be.null);
       expect(err).to.match(/unknown key type/);
       done();
     });
   });
 
-  ['dsa', 'ecdsa', 'ed25519', 'rsa'].forEach((keyType) => {
+  ["dsa", "ecdsa", "ed25519", "rsa"].forEach((keyType) => {
     it(`can generate a ${keyType} key`, (done) => {
       keygen({ type: keyType }, (err, result) => {
         expect(expect(err).to.be.null);
@@ -67,14 +67,14 @@ describe('basic tests', () => {
     });
   });
 
-  it('keeps the file when asked to', (done) => {
-    const dummyLocation = path.join(tmpDir, `dummy_file_to_keep_${crypto.randomBytes(16).toString('hex')}`);
+  it("keeps the file when asked to", (done) => {
+    const dummyLocation = path.join(tmpDir, `dummy_file_to_keep_${crypto.randomBytes(16).toString("hex")}`);
 
     keygen({ keep: true, location: dummyLocation }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(expect(result.path).to.not.be.null);
       const privateKey = result.private;
-      fs.readFile(result.path, { encoding: 'ascii' }, (fileReadErr, key) => {
+      fs.readFile(result.path, { encoding: "ascii" }, (fileReadErr, key) => {
         expect(expect(fileReadErr).to.be.null);
         expect(key).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
         expect(key).to.eql(privateKey);
@@ -83,31 +83,31 @@ describe('basic tests', () => {
     });
   });
 
-  it('discards the file when asked to', (done) => {
-    const dummyLocation = path.join(tmpDir, `dummy_file_to_discard_${crypto.randomBytes(16).toString('hex')}`);
+  it("discards the file when asked to", (done) => {
+    const dummyLocation = path.join(tmpDir, `dummy_file_to_discard_${crypto.randomBytes(16).toString("hex")}`);
 
     keygen({ keep: false, location: dummyLocation }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(expect(result.path).to.be.undefined);
       expect(result.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
-      fs.readFile(dummyLocation, { encoding: 'ascii' }, (fileReadErr, _) => {
+      fs.readFile(dummyLocation, { encoding: "ascii" }, (fileReadErr, _) => {
         expect(expect(fileReadErr).to.not.be.null);
-        expect(fileReadErr.code).to.eql('ENOENT');
+        expect(fileReadErr.code).to.eql("ENOENT");
         done();
       });
     });
   });
 
-  it('should fail if a bad location is specified', (done) => {
-    keygen({ location: '/bad/location/' }, (err, _) => {
+  it("should fail if a bad location is specified", (done) => {
+    keygen({ location: "/bad/location/" }, (err, _) => {
       expect(expect(err).to.not.be.null);
       expect(err).to.match(/No such file or directory/);
       done();
     });
   });
 
-  it('should fail if trying to overwrite an existing file', (done) => {
-    const dummyLocation = path.join(tmpDir, `dummy_file_to_discard_${crypto.randomBytes(16).toString('hex')}`);
+  it("should fail if trying to overwrite an existing file", (done) => {
+    const dummyLocation = path.join(tmpDir, `dummy_file_to_discard_${crypto.randomBytes(16).toString("hex")}`);
 
     // run the process twice with a fixed location, and the second one should fail
     keygen({ keep: true, location: dummyLocation }, (firstErr, firstResult) => {
