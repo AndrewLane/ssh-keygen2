@@ -1,5 +1,5 @@
-const assert = require('assert');
-const keygen = require('..');
+const assert = require("assert");
+const keygen = require("..");
 
 // generate a temporary keypair and return details
 keygen((err, keypair) => {
