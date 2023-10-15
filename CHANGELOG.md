@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 15-Oct-2023
+
+### Changed
+
+- Change node support to Node 18 and above
+- Bump dev dependencies
+- Introduce prettier for code formatting
+- Introduce sinon for advanced tests to complete code coverage
+
 ## [1.1.4] - 10-Jan-2023
 
 ### Changed
@@ -37,6 +46,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Initial Release
 
+[1.2.0]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.1.4...v1.2.0
 [1.1.4]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.1.1...v1.1.2
