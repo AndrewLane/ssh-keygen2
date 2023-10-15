@@ -18,7 +18,7 @@ describe('basic tests', () => {
     });
   });
 
-  it('encrypts', (done) => {
+  it('encrypts using password', (done) => {
     keygen({ password: 'blahblahblah' }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
@@ -30,6 +30,18 @@ describe('basic tests', () => {
     });
   });
 
+  it('encrypts using passphrase', (done) => {
+    keygen({ passphrase: 'foofoofoo' }, (err, result) => {
+      expect(expect(err).to.be.null);
+      expect(result.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
+      expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
+      expect(result.public).to.match(/^ssh-rsa /);
+      expect(result.fingerprint.length > 0);
+      expect(result.randomart.length > 0);
+      done();
+    });
+  });
+  
   it('fails with negative number of bits', (done) => {
     keygen({ bits: -1 }, (err, _) => {
       expect(expect(err).to.not.be.null);
