@@ -1,6 +1,5 @@
 import fs from "fs";
 import os from "os";
-const tmpDir = os.tmpdir();
 import path from "path";
 import crypto from "crypto";
 import { expect } from "chai";
@@ -8,7 +7,9 @@ import { describe, it, afterEach } from "mocha";
 import sinon from "sinon";
 import childProcess from "child_process";
 import { EventEmitter } from "events";
-import keygen from "../index.js";
+import keygen from "../index.js"; // eslint-disable-line import/extensions
+
+const tmpDir = os.tmpdir();
 
 describe("basic tests", () => {
   it("generates", (done) => {
