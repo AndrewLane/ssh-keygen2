@@ -1,9 +1,10 @@
 import childProcess from "child_process";
 import path from "path";
 import os from "os";
-const tmpDir = os.tmpdir();
 import crypto from "crypto";
 import fs from "fs";
+
+const tmpDir = os.tmpdir();
 
 export default (opts, cb) => {
   if (typeof opts === "function") {
