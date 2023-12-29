@@ -1,13 +1,14 @@
-const fs = require("fs");
-const tmpDir = require("os").tmpdir();
-const path = require("path");
-const crypto = require("crypto");
-const { expect } = require("chai");
-const { describe, it, afterEach } = require("mocha");
-const sinon = require("sinon");
-const childProcess = require("child_process");
-const { EventEmitter } = require("events");
-const keygen = require("..");
+import fs from "fs";
+import os from "os";
+const tmpDir = os.tmpdir();
+import path from "path";
+import crypto from "crypto";
+import { expect } from "chai";
+import { describe, it, afterEach } from "mocha";
+import sinon from "sinon";
+import childProcess from "child_process";
+import { EventEmitter } from "events";
+import keygen from "../index.js";
 
 describe("basic tests", () => {
   it("generates", (done) => {
