@@ -30,7 +30,7 @@ jobs:
         id: verify-changed-files
       - name: Create Pull Request if code formatters fixed something
         if: steps.verify-changed-files.outputs.files_changed == 'true'
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           commit-message: Code formatting tool on ${{ github.head_ref }}
           title: Code formatting for ${{ github.head_ref }}
