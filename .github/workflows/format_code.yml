@@ -26,7 +26,7 @@ jobs:
       - name: Apply Code formatting
         run: prettier --write **/*.js
       - name: Check if code formatters applied changes
-        uses: tj-actions/verify-changed-files@v13.1
+        uses: tj-actions/verify-changed-files@v19
         id: verify-changed-files
       - name: Create Pull Request if code formatters fixed something
         if: steps.verify-changed-files.outputs.files_changed == 'true'
