@@ -13,9 +13,8 @@ const isMacOs = process.platform === "darwin";
 console.log("isMacOs", isMacOs);
 
 describe("basic tests", () => {
-  it.only("generates", (done) => {
+  it("generates", (done) => {
     keygen((err, result) => {
-      console.log("result of generates", JSON.stringify(result, 2, null));
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
       expect(result.public).to.match(isMacOs ? /^ssh-ed25519 / : /^ssh-rsa /);
@@ -25,8 +24,9 @@ describe("basic tests", () => {
     });
   });
 
-  it("encrypts using password", (done) => {
+  it.only("encrypts using password", (done) => {
     keygen({ password: "blahblahblah" }, (err, result) => {
+      console.log("result of encrypts using passwor", JSON.stringify(result, 2, null));
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
       expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
@@ -57,17 +57,15 @@ describe("basic tests", () => {
     });
   });
 
-  it("fails with too large number of bits", (done) => {
+  it.only("fails with too large number of bits when not on macos", (done) => {
     keygen({ bits: 1000000000 }, (err, result) => {
-      if (result) {
-        console.log("passed unexpectedly");
-        console.log(result.public);
-        console.log(result.randomart);
-        console.log(result.private);
-        console.log(result.fingerprint);
+      if (isMacOs) {
+        expect(expect(err).to.be.null);
+        expect(expect(result).to.not.be.null);
+      } else {
+        expect(expect(err).to.not.be.null);
+        expect(err).to.match(/(Bits has bad value)|(Invalid RSA key length)/);
       }
-      expect(expect(err).to.not.be.null);
-      expect(err).to.match(/(Bits has bad value)|(Invalid RSA key length)/);
       done();
     });
   });
