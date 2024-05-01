@@ -18,7 +18,7 @@ describe("basic tests", () => {
       console.log("result of generates", JSON.stringify(result, 2, null));
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
-      expect(result.public).to.match(isMacOs ? /^ssh-rsa / : /^ssh-ed25519 /);
+      expect(result.public).to.match(isMacOs ? /^ssh-ed25519 / : /^ssh-rsa /);
       expect(result.fingerprint.length > 0);
       expect(result.randomart.length > 0);
       done();
