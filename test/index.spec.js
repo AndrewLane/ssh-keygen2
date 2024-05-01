@@ -24,7 +24,7 @@ describe("basic tests", () => {
     });
   });
 
-  it.only("encrypts using password", (done) => {
+  it("encrypts using password", (done) => {
     keygen({ password: "blahblahblah" }, (err, result) => {
       console.log("result of encrypts using passwor", JSON.stringify(result, 2, null));
       expect(expect(err).to.be.null);
@@ -39,7 +39,7 @@ describe("basic tests", () => {
     });
   });
 
-  it.only("encrypts using passphrase", (done) => {
+  it("encrypts using passphrase", (done) => {
     keygen({ passphrase: "foo bar biz bat" }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
@@ -61,7 +61,7 @@ describe("basic tests", () => {
     });
   });
 
-  it.only("fails with too large number of bits when not on macos", (done) => {
+  it("fails with too large number of bits when not on macos", (done) => {
     keygen({ bits: 1000000000 }, (err, result) => {
       if (isMacOs) {
         expect(expect(err).to.be.null);
