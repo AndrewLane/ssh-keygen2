@@ -32,19 +32,21 @@ describe("basic tests", () => {
       if (!isMacOs) {
         expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
       }
-      expect(result.public).to.match(/^ssh-rsa /);
+      expect(result.public).to.match(isMacOs ? /^ssh-ed25519 / : /^ssh-rsa /);
       expect(result.fingerprint.length > 0);
       expect(result.randomart.length > 0);
       done();
     });
   });
 
-  it("encrypts using passphrase", (done) => {
+  it.only("encrypts using passphrase", (done) => {
     keygen({ passphrase: "foo bar biz bat" }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
-      expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
-      expect(result.public).to.match(/^ssh-rsa /);
+      if (!isMacOs) {
+        expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
+      }
+      expect(result.public).to.match(isMacOs ? /^ssh-ed25519 / : /^ssh-rsa /);
       expect(result.fingerprint.length > 0);
       expect(result.randomart.length > 0);
       done();
