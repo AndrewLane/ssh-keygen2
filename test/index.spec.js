@@ -14,6 +14,10 @@ describe("basic tests", () => {
     keygen((err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
+      console.log(result.public);
+      console.log(result.randomart);
+      console.log(result.private);
+      console.log(result.fingerprint);
       expect(result.public).to.match(/^ssh-rsa /);
       expect(result.fingerprint.length > 0);
       expect(result.randomart.length > 0);
@@ -24,6 +28,10 @@ describe("basic tests", () => {
   it("encrypts using password", (done) => {
     keygen({ password: "blahblahblah" }, (err, result) => {
       expect(expect(err).to.be.null);
+      console.log(result.public);
+      console.log(result.randomart);
+      console.log(result.private);
+      console.log(result.fingerprint);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
       expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
       expect(result.public).to.match(/^ssh-rsa /);
@@ -36,6 +44,10 @@ describe("basic tests", () => {
   it("encrypts using passphrase", (done) => {
     keygen({ passphrase: "foo bar biz bat" }, (err, result) => {
       expect(expect(err).to.be.null);
+      console.log(result.public);
+      console.log(result.randomart);
+      console.log(result.private);
+      console.log(result.fingerprint);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
       expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
       expect(result.public).to.match(/^ssh-rsa /);
@@ -54,7 +66,13 @@ describe("basic tests", () => {
   });
 
   it("fails with too large number of bits", (done) => {
-    keygen({ bits: 1000000000 }, (err, _) => {
+    keygen({ bits: 1000000000 }, (err, result) => {
+      if (result) {
+        console.log(result.public);
+        console.log(result.randomart);
+        console.log(result.private);
+        console.log(result.fingerprint);
+      }
       expect(expect(err).to.not.be.null);
       expect(err).to.match(/(Bits has bad value)|(Invalid RSA key length)/);
       done();
