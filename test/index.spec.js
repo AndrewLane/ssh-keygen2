@@ -10,7 +10,6 @@ const { EventEmitter } = require("events");
 const keygen = require("..");
 
 const isMacOs = process.platform === "darwin";
-console.log("isMacOs", isMacOs);
 
 describe("basic tests", () => {
   it("generates", (done) => {
@@ -26,7 +25,6 @@ describe("basic tests", () => {
 
   it("encrypts using password", (done) => {
     keygen({ password: "blahblahblah" }, (err, result) => {
-      console.log("result of encrypts using passwor", JSON.stringify(result, 2, null));
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
       if (!isMacOs) {
