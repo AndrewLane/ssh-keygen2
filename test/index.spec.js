@@ -13,8 +13,9 @@ const isMacOs = process.platform === "darwin";
 console.log("isMacOs", isMacOs);
 
 describe("basic tests", () => {
-  it("generates", (done) => {
+  it.only("generates", (done) => {
     keygen((err, result) => {
+      console.log('result of generates', JSON.stringify(result, 2, null));
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
       expect(result.public).to.match(isMacOs ? /^ssh-rsa / : /^ssh-ed25519 /);
