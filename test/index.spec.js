@@ -9,8 +9,8 @@ const childProcess = require("child_process");
 const { EventEmitter } = require("events");
 const keygen = require("..");
 
-const isMacOs = (process.platform === "darwin");
-console.log('isMacOs', isMacOs);
+const isMacOs = process.platform === "darwin";
+console.log("isMacOs", isMacOs);
 
 describe("basic tests", () => {
   it("generates", (done) => {
@@ -59,7 +59,7 @@ describe("basic tests", () => {
   it("fails with too large number of bits", (done) => {
     keygen({ bits: 1000000000 }, (err, result) => {
       if (result) {
-        console.log('passed unexpectedly');
+        console.log("passed unexpectedly");
         console.log(result.public);
         console.log(result.randomart);
         console.log(result.private);
