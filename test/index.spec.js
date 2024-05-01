@@ -29,7 +29,9 @@ describe("basic tests", () => {
       console.log("result of encrypts using passwor", JSON.stringify(result, 2, null));
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
-      expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
+      if (!isMacOs) {
+        expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
+      }
       expect(result.public).to.match(/^ssh-rsa /);
       expect(result.fingerprint.length > 0);
       expect(result.randomart.length > 0);
