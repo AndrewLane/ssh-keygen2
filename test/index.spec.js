@@ -9,7 +9,7 @@ const childProcess = require("child_process");
 const { EventEmitter } = require("events");
 const keygen = require("..");
 
-const isMacOs = (process.platform == 'darwin');
+const isMacOs = (process.platform === "darwin");
 console.log('isMacOs', isMacOs);
 
 describe("basic tests", () => {
