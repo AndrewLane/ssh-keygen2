@@ -91,7 +91,7 @@ describe("basic tests", () => {
       const privateKey = result.private;
       fs.readFile(result.path, { encoding: "ascii" }, (fileReadErr, key) => {
         expect(expect(fileReadErr).to.be.null);
-        expect(key).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
+        expect(key).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
         expect(key).to.eql(privateKey);
         done();
       });
@@ -104,7 +104,7 @@ describe("basic tests", () => {
     keygen({ keep: false, location: dummyLocation }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(expect(result.path).to.be.undefined);
-      expect(result.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
+      expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
       fs.readFile(dummyLocation, { encoding: "ascii" }, (fileReadErr, _) => {
         expect(expect(fileReadErr).to.not.be.null);
         expect(fileReadErr.code).to.eql("ENOENT");
@@ -128,7 +128,7 @@ describe("basic tests", () => {
     keygen({ keep: true, location: dummyLocation }, (firstErr, firstResult) => {
       expect(expect(firstErr).to.be.null);
       expect(expect(firstResult.path).to.not.be.undefined);
-      expect(firstResult.private).to.match(/^-----BEGIN RSA PRIVATE KEY-----\n/);
+      expect(firstResult.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
       keygen({ keep: true, location: dummyLocation }, (secondErr, _) => {
         expect(expect(secondErr).to.not.be.null);
         expect(secondErr).to.match(/Key not generated because it would overwrite an existing file/);
