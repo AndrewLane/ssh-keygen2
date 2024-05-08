@@ -11,7 +11,7 @@
     "mocha": "10.4.0",
     "nyc": "15.1.0",
     "prettier": "3.2.5",
-    "sinon": "17.0.1"
+    "sinon": "17.0.2"
   },
   "scripts": {
     "lint": "npx eslint **/*.js",
