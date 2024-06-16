@@ -12,4 +12,7 @@ module.exports = {
     "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     quotes: ["error", "double"],
   },
+  parserOptions: {
+    sourceType: "module"
+  }
 };

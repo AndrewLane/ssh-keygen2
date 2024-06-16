@@ -7,7 +7,7 @@ import { describe, it, afterEach } from "mocha";
 import sinon from "sinon";
 import childProcess from "child_process";
 import { EventEmitter } from "events";
-import keygen from "../index.js"; // eslint-disable-line import/extensions
+import keygen from "../index.js";
 
 const tmpDir = os.tmpdir();
 
