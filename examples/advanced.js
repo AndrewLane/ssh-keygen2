@@ -14,8 +14,8 @@ const opts = {
 
 keygen(opts, (err, keypair) => {
   assert.ifError(err);
-  console.log(keypair.private); // eslint-disable-line no-console
-  console.log(keypair.public); // eslint-disable-line no-console
-  console.log(`${keypair.fingerprint}\n`); // eslint-disable-line no-console
-  console.log(`${keypair.randomart}\n`); // eslint-disable-line no-console
+  console.log(keypair.private);
+  console.log(keypair.public);
+  console.log(`${keypair.fingerprint}\n`);
+  console.log(`${keypair.randomart}\n`);
 });

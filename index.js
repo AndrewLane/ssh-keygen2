@@ -8,10 +8,10 @@ const tmpDir = os.tmpdir();
 
 export default (opts, cb) => {
   if (typeof opts === "function") {
-    cb = opts; // eslint-disable-line no-param-reassign
-    opts = {}; // eslint-disable-line no-param-reassign
+    cb = opts;
+    opts = {};
   }
-  opts = opts || {}; // eslint-disable-line no-param-reassign
+  opts = opts || {};
   let stderr = "";
   let stdout = "";
   let overwriteRefused = false;
