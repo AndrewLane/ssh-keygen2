@@ -1,10 +1,12 @@
-const childProcess = require("child_process");
-const path = require("path");
-const tmpDir = require("os").tmpdir();
-const crypto = require("crypto");
-const fs = require("fs");
+import childProcess from "child_process";
+import path from "path";
+import os from "os";
+import crypto from "crypto";
+import fs from "fs";
 
-module.exports = (opts, cb) => {
+const tmpDir = os.tmpdir();
+
+export default (opts, cb) => {
   if (typeof opts === "function") {
     cb = opts; // eslint-disable-line no-param-reassign
     opts = {}; // eslint-disable-line no-param-reassign

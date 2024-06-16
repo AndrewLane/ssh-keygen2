@@ -1,13 +1,15 @@
-const fs = require("fs");
-const tmpDir = require("os").tmpdir();
-const path = require("path");
-const crypto = require("crypto");
-const { expect } = require("chai");
-const { describe, it, afterEach } = require("mocha");
-const sinon = require("sinon");
-const childProcess = require("child_process");
-const { EventEmitter } = require("events");
-const keygen = require("..");
+import fs from "fs";
+import os from "os";
+import path from "path";
+import crypto from "crypto";
+import { expect } from "chai";
+import { describe, it, afterEach } from "mocha";
+import sinon from "sinon";
+import childProcess from "child_process";
+import { EventEmitter } from "events";
+import keygen from "../index.js"; // eslint-disable-line import/extensions
+
+const tmpDir = os.tmpdir();
 
 const isMacOs = process.platform === "darwin";
 
