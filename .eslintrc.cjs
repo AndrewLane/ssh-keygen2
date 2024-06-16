@@ -4,7 +4,6 @@ module.exports = {
     commonjs: true,
     es2021: true,
   },
-  extends: ["airbnb-base"],
   parserOptions: {
     ecmaVersion: 12,
   },
@@ -13,4 +12,7 @@ module.exports = {
     "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     quotes: ["error", "double"],
   },
+  parserOptions: {
+    sourceType: "module"
+  }
 };
