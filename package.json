@@ -1,18 +1,17 @@
 {
   "name": "@andrewwlane/ssh-keygen2",
-  "type": "module",
   "version": "1.2.0",
   "description": "Automate ssh-keygen command for generating RSA keypairs",
   "main": "index.js",
   "devDependencies": {
-    "chai": "5.0.0",
-    "eslint": "8.56.0",
+    "chai": "4.3.10",
+    "eslint": "8.57.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.29.1",
-    "mocha": "10.2.0",
-    "nyc": "15.1.0",
-    "prettier": "3.1.1",
-    "sinon": "17.0.1"
+    "mocha": "10.4.0",
+    "nyc": "17.0.0",
+    "prettier": "3.3.2",
+    "sinon": "18.0.0"
   },
   "scripts": {
     "lint": "npx eslint **/*.js",
