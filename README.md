@@ -29,16 +29,16 @@ command to be installed and in the path.
 ### Usage
 
 ```js
-var keygen = require('@andrewwlane/ssh-keygen2')
-  , assert = require('assert')
+import keygen from "@andrewwlane/ssh-keygen2";
+import assert from "assert";
 
 // generate a temporary keypair and return details
 keygen(function (err, keypair) {
   assert.ifError(err);
   console.log(keypair.private);
   console.log(keypair.public);
-  console.log(keypair.fingerprint + '\n');
-  console.log(keypair.randomart + '\n');
+  console.log(keypair.fingerprint + "\n");
+  console.log(keypair.randomart + "\n");
 });
 ```
 
@@ -93,24 +93,24 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRjv3GW0oAWhusF7+4jIOhkkax33jqOyIUE1dSnkun
 With full options:
 
 ```js
-var keygen = require('@andrewwlane/ssh-keygen2')
-  , assert = require('assert')
+import keygen from "@andrewwlane/ssh-keygen2";
+import assert from "assert";
 
 var opts = {
-  type: 'rsa',
+  type: "rsa",
   bits: 4096,
-  passphrase: 'this will encrypt the private key',
-  location: '/path/to/id_rsa',
+  passphrase: "this will encrypt the private key",
+  location: "/path/to/id_rsa",
   keep: true, // this will keep the resulting files
-  comment: 'optional comment for ssh public key'
+  comment: "optional comment for ssh public key",
 };
 
 keygen(opts, function (err, keypair) {
   assert.ifError(err);
   console.log(keypair.private);
   console.log(keypair.public);
-  console.log(keypair.fingerprint + '\n');
-  console.log(keypair.randomart + '\n');
+  console.log(keypair.fingerprint + "\n");
+  console.log(keypair.randomart + "\n");
 });
 ```
 
