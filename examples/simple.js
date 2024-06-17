@@ -1,5 +1,5 @@
-const assert = require("assert");
-const keygen = require("..");
+import assert from "assert";
+import keygen from "../index.js";
 
 // generate a temporary keypair and return details
 keygen((err, keypair) => {

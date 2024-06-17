@@ -1,7 +1,9 @@
-const assert = require("assert");
-const path = require("path");
-const tmpDir = require("os").tmpdir();
-const keygen = require("..");
+import assert from "assert";
+import keygen from "../index.js";
+import path from "path";
+import os from "os";
+
+const tmpDir = os.tmpdir();
 
 const opts = {
   type: "rsa",
