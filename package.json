@@ -5,7 +5,7 @@
   "description": "Automate ssh-keygen command for generating RSA keypairs",
   "main": "index.js",
   "devDependencies": {
-    "chai": "5.1.1",
+    "chai": "5.1.2",
     "eslint": "9.12.0",
     "mocha": "10.7.3",
     "nyc": "17.1.0",
