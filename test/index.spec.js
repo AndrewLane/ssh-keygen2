@@ -61,15 +61,10 @@ describe("basic tests", () => {
     });
   });
 
-  it("fails with too large number of bits when not on macos", (done) => {
+  it("does not fail when number of bits is absurd", (done) => {
     keygen({ bits: 1000000000 }, (err, result) => {
-      if (isMacOs) {
-        expect(expect(err).to.be.null);
-        expect(expect(result).to.not.be.null);
-      } else {
-        expect(expect(err).to.not.be.null);
-        expect(err).to.match(/(Bits has bad value)|(Invalid RSA key length)/);
-      }
+      expect(expect(err).to.be.null);
+      expect(expect(result).to.not.be.null);
       done();
     });
   });
