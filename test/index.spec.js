@@ -19,7 +19,7 @@ describe("basic tests", () => {
     keygen((err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
-      expect(result.public).to.match(/^ssh-(ed25519|rsa) /;
+      expect(result.public).to.match(/^ssh-(ed25519|rsa) /);
       expect(result.fingerprint.length > 0);
       expect(result.randomart.length > 0);
       done();
