@@ -12,6 +12,7 @@ import keygen from "../index.js";
 const tmpDir = os.tmpdir();
 
 const isMacOs = process.platform === "darwin";
+const isWindowsOs = process.platform === "win32";
 
 describe("basic tests", () => {
   it("generates", (done) => {
@@ -61,10 +62,15 @@ describe("basic tests", () => {
     });
   });
 
-  it("does not fail when number of bits is absurd", (done) => {
+  it("fails with too large number of bits when not on macos and not on windows", (done) => {
     keygen({ bits: 1000000000 }, (err, result) => {
-      expect(expect(err).to.be.null);
-      expect(expect(result).to.not.be.null);
+      if (isMacOs || isWindowsOs) {
+        expect(expect(err).to.be.null);
+        expect(expect(result).to.not.be.null);
+      } else {
+        expect(expect(err).to.not.be.null);
+        expect(err).to.match(/(Bits has bad value)|(Invalid RSA key length)/);
+      }
       done();
     });
   });
