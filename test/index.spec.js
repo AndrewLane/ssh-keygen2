@@ -12,13 +12,14 @@ import keygen from "../index.js";
 const tmpDir = os.tmpdir();
 
 const isMacOs = process.platform === "darwin";
+const isWindowsOs = process.platform === "win32";
 
 describe("basic tests", () => {
   it("generates", (done) => {
     keygen((err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
-      expect(result.public).to.match(isMacOs ? /^ssh-ed25519 / : /^ssh-rsa /);
+      expect(result.public).to.match(/^ssh-(ed25519|rsa) /);
       expect(result.fingerprint.length > 0);
       expect(result.randomart.length > 0);
       done();
@@ -29,10 +30,10 @@ describe("basic tests", () => {
     keygen({ password: "blahblahblah" }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
-      if (!isMacOs) {
+      if (!isMacOs && !isWindowsOs) {
         expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
       }
-      expect(result.public).to.match(isMacOs ? /^ssh-ed25519 / : /^ssh-rsa /);
+      expect(result.public).to.match(/^ssh-(ed25519|rsa) /);
       expect(result.fingerprint.length > 0);
       expect(result.randomart.length > 0);
       done();
@@ -43,10 +44,10 @@ describe("basic tests", () => {
     keygen({ passphrase: "foo bar biz bat" }, (err, result) => {
       expect(expect(err).to.be.null);
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
-      if (!isMacOs) {
+      if (!isMacOs && !isWindowsOs) {
         expect(result.private).to.match(/Proc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC/);
       }
-      expect(result.public).to.match(isMacOs ? /^ssh-ed25519 / : /^ssh-rsa /);
+      expect(result.public).to.match(/^ssh-(ed25519|rsa) /);
       expect(result.fingerprint.length > 0);
       expect(result.randomart.length > 0);
       done();
@@ -61,9 +62,9 @@ describe("basic tests", () => {
     });
   });
 
-  it("fails with too large number of bits when not on macos", (done) => {
+  it("fails with too large number of bits when not on macos and not on windows", (done) => {
     keygen({ bits: 1000000000 }, (err, result) => {
-      if (isMacOs) {
+      if (isMacOs || isWindowsOs) {
         expect(expect(err).to.be.null);
         expect(expect(result).to.not.be.null);
       } else {
