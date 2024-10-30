@@ -7,6 +7,10 @@ Automate ssh-keygen command for generating RSA keypairs
 
 Forked from [this package](https://www.npmjs.com/package/ssh-keygen2) which has been abandoned.
 
+### Contributions
+
+All contributions welcome, especially for [Hacktoberfest](https://hacktoberfest.com/).
+
 ### Rationale
 
 This module is useful if you want:
