@@ -5,17 +5,17 @@
   "description": "Automate ssh-keygen command for generating RSA keypairs",
   "main": "index.js",
   "devDependencies": {
+    "c8": "10.1.2",
     "chai": "5.1.2",
     "eslint": "9.15.0",
     "mocha": "10.8.2",
-    "nyc": "17.1.0",
     "prettier": "3.4.1",
     "sinon": "19.0.2"
   },
   "scripts": {
     "lint": "npx eslint **/*.js",
     "test": "mocha --timeout 10000",
-    "coverage": "nyc --reporter=lcovonly mocha",
+    "coverage": "c8 --reporter=lcovonly mocha",
     "format": "prettier --write **/*.js"
   },
   "repository": {
