@@ -9,7 +9,7 @@
     "chai": "5.1.2",
     "eslint": "9.16.0",
     "mocha": "11.0.1",
-    "prettier": "3.4.1",
+    "prettier": "3.4.2",
     "sinon": "19.0.2"
   },
   "scripts": {
