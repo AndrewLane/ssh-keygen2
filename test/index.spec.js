@@ -11,9 +11,6 @@ import keygen from "../index.js";
 
 const tmpDir = os.tmpdir();
 
-const isMacOs = process.platform === "darwin";
-const isWindowsOs = process.platform === "win32";
-
 describe("basic tests", () => {
   it("generates", (done) => {
     keygen((err, result) => {
