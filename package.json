@@ -13,7 +13,7 @@
     "sinon": "20.0.0"
   },
   "scripts": {
-    "lint": "npx eslint **/*.js",
+    "lint": "npx eslint",
     "test": "mocha --timeout 10000",
     "coverage": "c8 --reporter=lcovonly mocha",
     "format": "prettier --write **/*.js"
