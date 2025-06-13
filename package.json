@@ -10,7 +10,7 @@
     "eslint": "9.28.0",
     "mocha": "11.6.0",
     "prettier": "3.5.3",
-    "sinon": "20.0.0"
+    "sinon": "21.0.0"
   },
   "scripts": {
     "lint": "npx eslint",
