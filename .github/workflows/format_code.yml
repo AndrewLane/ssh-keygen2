@@ -14,7 +14,7 @@ jobs:
       # 2. If code was formatted, fail and open up a PR to format the code
       # 3. If code was not formatted, proceed...
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.head_ref }}
       - name: Set up NodeJS
