@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 22-Nov-2025
+
+### Changed
+
+- Trying to fix the 404 with trusted publishing
+
 ## [2.0.2] - 22-Nov-2025
 
 ### Changed
