@@ -2,6 +2,11 @@ name: NPM Publish
 on:
   release:
     types: [created]
+
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
