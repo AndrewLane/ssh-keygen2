@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.4] - 22-Nov-2025
+
+### Changed
+
+- Trying to fix trusted publishing
+
 ## [2.0.3] - 22-Nov-2025
 
 ### Changed
@@ -46,21 +52,25 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [1.1.4] - 10-Jan-2023
 
 ### Changed
+
 - Version bumps and security fix in dependencies
 
 ## [1.1.3] - 28-Mar-2022
 
 ### Changed
+
 - Version bumps and security fix in dependencies
 
 ## [1.1.2] - 1-Oct-2020
 
 ### Changed
+
 - Tweaking GitHub Actions (CI only)
 
 ## [1.1.1] - 1-Oct-2020
 
 ### Changed
+
 - Tweaking GitHub Actions (CI only)
 
 ## [1.1.0] - 1-Oct-2020
@@ -70,12 +80,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Added code scanning via a GitHub Action.
 
 ### Changed
-- Removed the forwarding of the options object sent to to the keygen function on to the ssh-keygen spawn call.  I can't envision any scenario where this would be needed by any consumer of this library.
+
+- Removed the forwarding of the options object sent to to the keygen function on to the ssh-keygen spawn call. I can't envision any scenario where this would be needed by any consumer of this library.
 
 ## [1.0.1] - 18-Sep-2020
 
 ### Initial Release
 
+[2.0.4]: https://github.com/AndrewLane/ssh-keygen2/compare/v2.0.3...v2.0.4
+[2.0.3]: https://github.com/AndrewLane/ssh-keygen2/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/AndrewLane/ssh-keygen2/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/AndrewLane/ssh-keygen2/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/AndrewLane/ssh-keygen2/compare/v1.2.0...v2.0.0

@@ -1,7 +1,7 @@
 {
   "name": "@andrewwlane/ssh-keygen2",
   "type": "module",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Automate ssh-keygen command for generating RSA keypairs",
   "main": "index.js",
   "devDependencies": {
