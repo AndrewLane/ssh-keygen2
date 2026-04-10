@@ -10,7 +10,7 @@
     "eslint": "10.2.0",
     "globals": "17.4.0",
     "mocha": "11.7.5",
-    "prettier": "3.8.1",
+    "prettier": "3.8.2",
     "sinon": "21.0.3"
   },
   "scripts": {
