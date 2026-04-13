@@ -11,7 +11,7 @@
     "globals": "17.5.0",
     "mocha": "11.7.5",
     "prettier": "3.8.2",
-    "sinon": "21.1.0"
+    "sinon": "21.1.2"
   },
   "scripts": {
     "lint": "npx eslint",
