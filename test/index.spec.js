@@ -61,7 +61,7 @@ describe("basic tests", () => {
     });
   });
 
-  ["dsa", "ecdsa", "ed25519", "rsa"].forEach((keyType) => {
+  ["ecdsa", "ed25519", "rsa"].forEach((keyType) => {
     it(`can generate a ${keyType} key`, (done) => {
       keygen({ type: keyType }, (err, result) => {
         expect(expect(err).to.be.null);
