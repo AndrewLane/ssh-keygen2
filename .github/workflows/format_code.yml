@@ -20,7 +20,7 @@ jobs:
       - name: Set up NodeJS
         uses: actions/setup-node@v6
         with:
-          node-version: "18.x"
+          node-version: "24.x"
       - name: Install Prettier
         run: npm install -g prettier@3.0.3
       - name: Apply Code formatting
