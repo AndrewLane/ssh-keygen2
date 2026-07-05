@@ -13,6 +13,9 @@
     "prettier": "3.9.4",
     "sinon": "22.0.0"
   },
+  "overrides": {
+    "serialize-javascript": "^7.0.3"
+  },
   "scripts": {
     "lint": "npx eslint",
     "test": "mocha --timeout 10000",
