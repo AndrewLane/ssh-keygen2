@@ -10,7 +10,7 @@
     "eslint": "10.7.0",
     "globals": "17.7.0",
     "mocha": "11.7.6",
-    "prettier": "3.9.5",
+    "prettier": "3.9.6",
     "sinon": "22.0.0"
   },
   "overrides": {
