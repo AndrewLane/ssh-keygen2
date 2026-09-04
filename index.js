@@ -31,7 +31,6 @@ export default (opts, cb) => {
   args.push("-C", opts.comment || "");
   args.push("-N", opts.passphrase || opts.password || "");
   args.push("-f", location);
-  args.push("-m", "PEM");
 
   const proc = childProcess.spawn("ssh-keygen", args);
   proc.stderr.on("data", (data) => {
