@@ -14,6 +14,7 @@ const tmpDir = os.tmpdir();
 describe("basic tests", () => {
   it("generates", (done) => {
     keygen((err, result) => {
+      console.log("error", err);
       expect(err).to.be.null;
       expect(result.private).to.match(/^-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----\n/);
       expect(result.public).to.match(/^ssh-(ed25519|rsa) /);
